@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import 'antd-mobile/dist/antd-mobile.css'
+// import 'antd-mobile/dist/antd-mobile.less'
+// import App from './App';
+import App from './router'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
