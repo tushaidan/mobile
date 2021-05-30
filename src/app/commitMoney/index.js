@@ -145,12 +145,14 @@ class Money extends Component {
         const currentLocale = languages.find(item => item.value === locale).language;
         return(
             <div className='money'>
-                <NavBar
+                {
+                    this.props.showTopBar === false?null:<NavBar
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.context.router.push({ pathname: '/pay',state: { bankIndex:this.select_bank}})} }
                 leftContent={"Pay Money"}
                 ></NavBar>
+                }
                 <WingBlank>
                     <LocaleProvider locale={currentLocale}>
                         <div>
@@ -168,7 +170,10 @@ class Money extends Component {
                                 fontSize={18}
                                 size={40}
                                 onComplete={()=>{}} />
-                                &nbsp;&nbsp;Menunggu pembayaran&nbsp;!</div>
+                                {
+                                    this.props.showTopBar === false?null:<span>&nbsp;&nbsp;Menunggu pembayaran&nbsp;!</span>
+                                }
+                                </div>
                             </div>
                             <WhiteSpace size="sm" />
                             <Card>
@@ -208,7 +213,7 @@ class Money extends Component {
                             </Card>
                             {
                                 !(this.props.location.state && this.props.location.state.Conven_store)?
-                                <div>
+                                <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start'}}>
                                     <p className="" style={{color:'#fdfdfd'}}><div className="box"></div>Panduann PemBayaran</p>
                                     <SegmentedControl
                                     values={['ATM', 'Mobile Banking', 'Internet Banking']}
@@ -229,11 +234,15 @@ class Money extends Component {
                                 </div>
                                 :null
                             }
-                            <WhiteSpace size="lg" />
-                            <Button type="primary" size="small" onClick={()=>{
+                            {
+                                this.props.showTopBar === false?null:<WhiteSpace size="lg" />
+                            }
+                            {
+                                this.props.showTopBar === false?null: <Button type="primary" size="small" onClick={()=>{
                                 this.context.router.push({ pathname: '/pay',state: { bankIndex:this.select_bank}})
                                 //this.context.router.push({ pathname: '/result',state: { bankIndex:this.select_bank}})
-                            }}>Kembali ke akun</Button>
+                                 }}>Kembali ke akun</Button>
+                            }
                         </div>
                     </LocaleProvider>
                 </WingBlank>

@@ -23,14 +23,16 @@ class ResultOutPut extends React.Component {
     render(){
         return(
             <div className="result">
-                <NavBar
-                mode="light"
-                icon={<Icon type="left" />}
-                onLeftClick={() => {
-                    this.context.router.push({ pathname: '/money',state: { bankIndex:this.props.location.state.bankIndex}})
-                } }
-                leftContent={"Pay Config"}
-                ></NavBar>
+                {
+                    this.props.showTopBar === false?null:<NavBar
+                    mode="light"
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => {
+                        this.context.router.push({ pathname: '/money',state: { bankIndex:this.props.location.state.bankIndex}})
+                    } }
+                    leftContent={"Pay Config"}
+                    ></NavBar>
+                }                
                  <Result
                         img={myImg('https://gw.alipayobjects.com/zos/rmsportal/pdFARIqkrKEGVVEwotFe.svg')}
                         title="支付成功"

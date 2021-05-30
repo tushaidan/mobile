@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'antd-mobile/dist/antd-mobile.css'
+import 'antd/dist/antd.css';
 // import 'antd-mobile/dist/antd-mobile.less'
 // import App from './App';
 import App from './router'
