@@ -165,7 +165,7 @@ class Pay extends React.Component {
                     <WingBlank>
                         <Card>
                             <Card.Header
-                                title="葛成远"
+                                title="张三"
                                 thumb="card.png"
                                 extra={<span style={{fontSize:12}}>商业银行</span>}
                             />
@@ -202,7 +202,7 @@ class Pay extends React.Component {
             }
                 <Footer style={{display:'flex',justifyContent:'space-between'}}>
                     <div id='owner' className="active-menu" onClick={e=>this.onChange(e)}> {this.activeMenu!=="owner"?<img id='owner' style={{height:'22px'}} src="owner.png"/>:<img id='owner' style={{height:'22px'}} src="owner2.png"/>}<div id='owner' style={this.activeMenu === "owner"?{color:'black'}:{color:'grey'}}>收款人</div></div>
-                    <div id='money1' className="active-menu" onClick={e=>this.onChange(e)}> {this.activeMenu!=="money1"?<img id='money1' style={{height:'22px'}}  src="money1.png"/>:<img id='money1' style={{height:'22px'}} src="money4.png"/>}<div id='money1' style={this.activeMenu ==="money1"?{color:'black'}:{color:'grey'}}>汇款记</div></div>
+                    <div id='money1' className="active-menu" onClick={e=>this.onChange(e)}> {this.activeMenu!=="money1"?<img id='money1' style={{height:'22px'}}  src="money1.png"/>:<img id='money1' style={{height:'22px'}} src="money4.png"/>}<div id='money1' style={this.activeMenu ==="money1"?{color:'black'}:{color:'grey'}}>汇款记录</div></div>
                     <div id='money3' className="active-menu" onClick={e=>this.onChange(e)}> {this.activeMenu!=="money3"?<img id='money3' style={{height:'22px'}} src="money3.png"/>:<img id='money3' style={{height:'22px'}} src="money2.png"/>}<div id='money3' style={this.activeMenu ==="money3"?{color:'black'}:{color:'grey'}}>汇款</div></div>
                     <div id='myself' className="active-menu" onClick={e=>this.onChange(e)}>  {this.activeMenu!=="myself"?<img id='myself' style={{height:'22px'}} src="myself.png"/>:<img id='myself' style={{height:'22px'}} src="myself2.png"/>} <div id='myself' style={this.activeMenu ==="myself"?{color:'black'}:{color:'grey'}}>我的</div></div>
                 </Footer>
@@ -334,7 +334,7 @@ class Pay extends React.Component {
                     <Card.Header
                         title="持卡人"
                         thumb="card.png"
-                        extra={<span>葛成远</span>}
+                        extra={<span>张三</span>}
                     />
                     <Card.Body>
                         <div>02138********5678</div>
@@ -369,7 +369,7 @@ class Pay extends React.Component {
                             <Card.Header
                                 title="持卡人"
                                 thumb="card.png"
-                                extra={<span>葛成远</span>}
+                                extra={<span>张三</span>}
                             />
                             <Card.Body>
                                 <div>02138********5678</div>

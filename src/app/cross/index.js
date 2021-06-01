@@ -238,7 +238,7 @@ class Pay extends React.Component {
                                 <InputItem
                                   type="phone"
                                   placeholder="请输入您的手机号"
-                                >+<input type="text" value="86"  style={{width:'30px',borderWidth:'0px'}}/></InputItem>
+                                >+<input type="text" value="62"  style={{width:'30px',borderWidth:'0px'}}/></InputItem>
                             }
                            
                             {!this.phoneSignIn && 

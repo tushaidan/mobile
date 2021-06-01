@@ -241,7 +241,7 @@ class Pay extends React.Component {
                 <div style={{textAlign:'initial'}}>收款人信息</div>
                 <Card style={{marginTop:'20px'}}>
                     <Card.Header
-                        title="葛成远"
+                        title="张三"
                         thumb="card.png"
                         extra={<span style={{fontSize:12}}>商业银行</span>}
                     />
@@ -430,7 +430,7 @@ class Pay extends React.Component {
                             <WhiteSpace size="lg" />
                             <Card style={{marginTop:'20px'}}>
                                 <Card.Header
-                                    title="葛成远"
+                                    title="张三"
                                     thumb="card.png"
                                     extra={<span style={{fontSize:12}}>商业银行</span>}
                                 />
