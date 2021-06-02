@@ -27,6 +27,8 @@ class Pay extends React.Component {
     @observable signIn = false
     @observable phoneSignIn = false
     @observable showLoading = false
+    @observable showTimes = false
+    @observable showTimes_times = 60
     constructor(props) {
         super(props);
         this.state = {
@@ -97,6 +99,23 @@ class Pay extends React.Component {
             // 知乎: zhihu:// 
             // 优酷: youku://
         window.location.href = "taobao://"
+    }
+
+    viliden = (e)=>{
+      if(this.showTimes === true){
+        return
+      }
+      document.getElementById('viliden').style.color = 'grey';
+      this.showTimes = true
+      var ruenThread = setInterval(()=>{
+        this.showTimes_times --
+        if(this.showTimes_times === 0 ){
+          clearInterval(ruenThread)
+          this.showTimes = false
+          this.showTimes_times = 60
+          document.getElementById('viliden').style.color = 'blue';
+        }
+      },1000)
     }
 
     render(){
@@ -257,7 +276,8 @@ class Pay extends React.Component {
                               <div>
                                 <WhiteSpace size="lg" />
                                 <WhiteSpace size="lg" />
-                                  <input style={{color:' #000',fontSize:' 17px',appearance:' none',padding:' 2px 0',border:' 0',backgroundColor:' transparent',lineHeight:' 1',boxSizing:' border-box',borderBottom: '1px solid grey'}} type="text" placeholder="请输入6位验证码"/><span style={{border:0,color:'blue',background:'transparent'}}> 获取验证码 </span>
+                                  <input style={{color:' #000',fontSize:' 17px',appearance:' none',padding:' 2px 0',border:' 0',backgroundColor:' transparent',lineHeight:' 1',boxSizing:' border-box',borderBottom: '1px solid grey'}} type="text" placeholder="请输入6位验证码"/>
+                                  <div id='viliden' className='viliden' style={{border:0,color:'blue',background:'transparent',display: 'inline-block'}} onClick={this.viliden} > 获取验证码 {this.showTimes && this.showTimes_times}</div>
                               </div>
                             }
                             <WhiteSpace size="lg" />
@@ -293,7 +313,7 @@ class Pay extends React.Component {
                             <WhiteSpace size="lg" />
                             <List renderHeader={() => '登入密码'}>
                               <InputItem
-                                    {...getFieldProps('password')}
+                                    {...getFieldProps('password_1')}
                                     type="password"
                                     style={{'height':"80px",width:"100%","fontSize":12}}
                                     placeholder="请输入6~16位新密码（数字+英文组合）"
@@ -303,7 +323,7 @@ class Pay extends React.Component {
                             </List>
                             <List renderHeader={() => '确认密码'}>
                             <InputItem
-                                    {...getFieldProps('password')}
+                                    {...getFieldProps('password_2')}
                                     type="password"
                                     style={{'height':"80px","fontSize":12}}
                                     placeholder="请输入密码信息"

@@ -94,7 +94,7 @@ const country = [
 @observer
 class Pay extends React.Component {
     @observable country = [1]
-    @observable bank = [1]
+    @observable bank = ''
     @observable receive = [2]
     @observable money = 0
     @observable modalstatus = false
@@ -149,7 +149,7 @@ class Pay extends React.Component {
     }
 
     onReceivePickerChange = (val)=>{
-
+        this.receive = val
     }
 
     BankChange = v=>{
@@ -339,7 +339,7 @@ class Pay extends React.Component {
                 <div style={{textAlign:'initial'}}>出生日期</div>
                 <DatePicker
                 mode="date"
-                title="Select Date"
+                title="选择出生日期"
                 extra="选择出生日期"
                 value={this.huikuan_birthDay}
                 onChange={date => {this.huikuan_birthDay = date}}
@@ -353,7 +353,7 @@ class Pay extends React.Component {
                 transparent
                 maskClosable={false}
                 closable
-                onClose={()=>{this.address=false}}
+                onClose={()=>{this.address_2=false}}
                 footer={[{ text: '上一步', onPress: () => {this.address=true;this.address_2=false} },{ text: '完成', onPress: () => {this.address_2=false;this.last=true} }]}
                 title="付款明细"
                 wrapProps={{ onTouchStart: this.onWrapTouchStart }}
@@ -362,10 +362,12 @@ class Pay extends React.Component {
                 >
                 <div style={{ height: '100%', overflow: 'scroll' }}>
                     <div style={{textAlign:'initial'}}>银行选择</div>
-                    <Picker data={bank} cols={1}  className="forss" 
+                    <Picker data={bank} cols={1}
+                        title="请选择"
                         value={this.bank}
+                        onVisibleChange = {()=>{if(this.bank === ""){this.bank = [1]}}}
                         onPickerChange={this.onBankPickerChange}>
-                            <List.Item  style={{fontSize:16,color:'blue'}} arrow="horizontal"></List.Item>
+                        <List.Item  style={{fontSize:16,color:'grey'}} arrow="horizontal"> </List.Item>
                     </Picker>
                     <div style={{textAlign:'initial'}}>银行卡上您的姓名</div>
                      <InputItem

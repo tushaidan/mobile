@@ -267,11 +267,15 @@ class Pay extends React.Component {
                     ></InputItem>
                     <Picker data={district2} cols={1}  className="forss" 
                     value={this.relationship}
+                    onVisibleChange = {()=>{
+                        if(this.relationship === ""){this.relationship = [1]}
+                        }}
                     onPickerChange={this.onRelationshipPickerChange}>
                         <List.Item  arrow="horizontal">对方关系</List.Item>
                     </Picker>
                     <Picker data={district} cols={1} className="forss"
                     value={this.huikuan} 
+                    onVisibleChange = {()=>{if(this.huikuan === ""){this.huikuan = [1]}}}
                     onPickerChange={this.onHuikuanPickerChange} >
                         <List.Item arrow="horizontal">汇款用途</List.Item>
                     </Picker>
