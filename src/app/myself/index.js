@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { PayStore } from './store'
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { Button,Modal } from 'antd-mobile'
+import { Button,Modal, InputItem,DatePicker,List} from 'antd-mobile'
 import { Divider } from 'antd';
 import './index.less'
 
@@ -22,14 +22,13 @@ function closest(el, selector) {
 @observer
 class Pay extends React.Component {
     @observable activeMenu = 'owner'
+    @observable url = ''
+    @observable url_1 = ''
     @observable modalstatus = false
-    @observable shoukuanren = false
-    @observable address = false
-    @observable last = false
-    @observable showpepple = false
-    @observable showOwner = false
-    @observable relationship = ''
-    @observable huikuan = ''
+    @observable identify_1 = false
+    @observable identify_2 = false
+    @observable complexed = false
+    @observable huikuan_birthDay = ''
     constructor(props) {
         super(props);
         this.state = {
@@ -46,14 +45,40 @@ class Pay extends React.Component {
         router: PropTypes.object
     }
 
-    onChange = (e) => {
-        if(e.target.id !== this.activeMe ){
-            this.activeMenu = e.target.id
+    upload = (files)=>{
+        let url = null
+        let file =  files.currentTarget.files[0]
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
         }
+        console.log(url)
+        this.url =  url ;
+    }
+
+    upload_1 = (files)=>{
+        let url = null
+        let file =  files.currentTarget.files[0]
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        console.log(url)
+        this.url_1 =  url ;
     }
 
     complex = ()=>{
-        this.modalstatus = true
+        if(this.complexed){
+            this.identify_2 = true
+        }else{
+            this.modalstatus = true
+        }
     }
 
     onWrapTouchStart = (e) => {
@@ -97,7 +122,7 @@ class Pay extends React.Component {
                 </div>
                 <div style={{display:'flex',flexDirection:'row',justifyContent:"space-between",alignItems: 'center'}}>
                     <div style={{marginTop:"40px"}}>个人资料信息</div>
-                    <Button style={{marginTop:"40px",fontSize:16,width: '100px',height: '32px',lineHeight: '32px',color:'white'}} onClick={this.complex} type="primary" >完 善</Button>
+                    <Button style={{marginTop:"40px",fontSize:16,width: '100px',height: '32px',lineHeight: '32px',color:'white'}} onClick={this.complex} type="primary" >{this.complexed?"查 看":"完 善"}</Button>
                 </div>
                 <Divider />
                 <div style={{display:'flex',flexDirection:'row',justifyContent:"space-between",alignItems: 'center'}}>
@@ -110,47 +135,203 @@ class Pay extends React.Component {
                     maskClosable={false}
                     closable
                     onClose={()=>{this.modalstatus=false}}
-                    footer={[{ text: '下一步', onPress: () => {this.modalstatus=false;} }]}
                     title="完善信息"
                     wrapProps={{ onTouchStart: this.onWrapTouchStart }}
                     afterClose={() => { }}
                 >
                     <div style={{ height: '100%', overflow: 'scroll' }}>
-                        aaa
+                    <img
+                        src={this.url?this.url:'identify_demo.png'}
+                        alt=""
+                        style={{ width: '100%', verticalAlign: 'top' ,height:'230px'}}
+                    />
+                    <div style={{display:'flex',flexDirection:'column',marginTop:'20px' }}>
+                        <div style={{color:'black'}}>印度尼西亚身份证人像面照片</div>
+                        <div style={{fontSize: '12px','marginTop': '20px'}}>拍摄时请务必确保光线充足，请将证件与拍摄框中的高亮区域对齐，并轻按下方快门完成拍照</div>
+                        <div style={{display: 'flex',justifyContent: 'space-between',padding:'10px',color:'cadetblue'}}>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>本人证件</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>证件原件</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>清晰可见</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>无遮挡</span>
+                            </div>
+                        </div>
+                        {
+                            this.url?
+                            <div style={{display:'flex',justifyContent:'space-between'}}>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{}}>重新拍摄
+                                    <input
+                                        onChange={this.upload}
+                                        style={{opacity: 0,position: 'absolute',right: 0,top: 10}}
+                                        type='file'
+                                        accept="image/*"
+                                        // onImageClick={(index, fs) => console.log(index, fs)}
+                                        length={1}
+                                        multiple={false}
+                                        capture='camera'
+                                    />
+                                </Button>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{this.modalstatus=false;this.identify_1=true}}>下一步</Button>
+                            </div>
+                            :
+                            <div>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{}}>开始拍摄
+                                    <input
+                                        onChange={this.upload}
+                                        style={{opacity: 0,position: 'absolute',right: 0,top: 10}}
+                                        type='file'
+                                        accept="image/*"
+                                        // onImageClick={(index, fs) => console.log(index, fs)}
+                                        length={1}
+                                        multiple={false}
+                                        capture='camera'
+                                    />
+                                </Button>
+                            </div>
+                        }
+                    </div>
+                    
                     </div>
                 </Modal>
-                {/* <Modal
-                visible={this.shoukuanren}
-                transparent
-                maskClosable={false}
-                closable
-                onClose={()=>{this.shoukuanren=false}}
-                footer={[{ text: '上一步', onPress: () => {this.shoukuanren=false;this.modalstatus=true} },{ text: '下一步', onPress: () => {this.shoukuanren=false;this.address=true} }]}
-                title="完善信息"
-                wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-                afterClose={() => { //alert('afterClose'); 
-                }}
+                <Modal
+                    visible={this.identify_1}
+                    transparent
+                    maskClosable={false}
+                    closable
+                    onClose={()=>{this.identify_1=false}}
+                    title="完善信息"
+                    wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                    afterClose={() => { }}
                 >
-                <div style={{ height: '100%', overflow: 'scroll' }}>
-
-                </div>
+                    <div style={{ height: '100%', overflow: 'scroll' }}>
+                    <img
+                        src={this.url_1?this.url_1:'identify_demo_1.png'}
+                        alt=""
+                        style={{ width: '100%', verticalAlign: 'top' ,height:'230px'}}
+                    />
+                    <div style={{display:'flex',flexDirection:'column',marginTop:'20px' }}>
+                        <div style={{color:'black'}}>印度尼西亚手持身份证人像面照片</div>
+                        <div style={{fontSize: '12px','marginTop': '20px'}}>拍摄时请务必确保光线充足，请将证件与拍摄框中的高亮区域对齐，并轻按下方快门完成拍照</div>
+                        <div style={{display: 'flex',justifyContent: 'space-between',padding:'10px',color:'cadetblue'}}>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>本人证件</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>证件原件</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>清晰可见</span>
+                            </div>
+                            <div style={{display:'flex',flexDirection: 'column',alignItems: 'center'}}>
+                                <span>手持无遮挡</span>
+                            </div>
+                        </div>
+                        {
+                            this.url_1?
+                            <div style={{display:'flex',justifyContent:'space-between'}}>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{}}>重新拍摄
+                                    <input
+                                        onChange={this.upload_1}
+                                        style={{opacity: 0,position: 'absolute',right: 0,top: 10}}
+                                        type='file'
+                                        accept="image/*"
+                                        // onImageClick={(index, fs) => console.log(index, fs)}
+                                        length={1}
+                                        multiple={false}
+                                        capture='camera'
+                                    />
+                                </Button>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{this.identify_1 = false;this.identify_2=true}}>下一步</Button>
+                            </div>
+                            :
+                            <div>
+                                <Button style={{marginTop:'20px',fontSize:16,padding:"0px 10px",color:'white'}} type="primary"  onClick={()=>{}}>开始拍摄
+                                    <input
+                                        onChange={this.upload_1}
+                                        style={{opacity: 0,position: 'absolute',right: 0,top: 10}}
+                                        type='file'
+                                        accept="image/*"
+                                        // onImageClick={(index, fs) => console.log(index, fs)}
+                                        length={1}
+                                        multiple={false}
+                                        capture='camera'
+                                    />
+                                </Button>
+                            </div>
+                        }
+                    </div>
+                    
+                    </div>
                 </Modal>
                 <Modal
-                visible={this.address}
-                transparent
-                maskClosable={false}
-                closable
-                onClose={()=>{this.address=false}}
-                footer={[{ text: '上一步', onPress: () => {this.address=false;this.shoukuanren=true} },{ text: '下一步', onPress: () => {this.address=false;} }]}
-                title="完善信息"
-                wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-                afterClose={() => { //alert('afterClose'); 
-                }}
+                    visible={this.identify_2}
+                    transparent
+                    maskClosable={false}
+                    closable
+                    onClose={()=>{this.identify_2=false}}
+                    title="完善信息"
+                    footer={[{text: '完成', onPress: () => {this.identify_2=false;this.complexed=true}}]}
+                    wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                    afterClose={() => { }}
                 >
-                <div style={{ height: '100%', overflow: 'scroll' }}>
-
-                </div>
-                </Modal> */}
+                    <div style={{ height: '100%', overflow: 'scroll' }}>
+                        <div style={{textAlign:'initial'}}>姓</div>
+                        <InputItem
+                            type="text"
+                            value={'张'}
+                            style={{'height':"80px","fontSize":16}}
+                            placeholder=""
+                        >
+                        </InputItem>
+                        <div style={{textAlign:'initial'}}>名</div>
+                        <InputItem
+                            type="text"
+                            value={'三'}
+                            style={{'height':"80px","fontSize":16}}
+                            placeholder=""
+                        >
+                        </InputItem>
+                        <div style={{textAlign:'initial'}}>证件号码</div>
+                        <InputItem
+                            type="text"
+                            value={"98982228766"}
+                            style={{'height':"80px","fontSize":16}}
+                            placeholder=""
+                        >
+                        </InputItem>
+                        <div style={{textAlign:'initial'}}>证件有效期</div>
+                        <DatePicker
+                        mode="date"
+                        title="选择日期"
+                        extra="选择日期"
+                        value={this.huikuan_birthDay}
+                        onChange={date => {this.huikuan_birthDay = date}}
+                        >
+                        <List.Item style={{color:'grey'}} arrow="horizontal"></List.Item>
+                        </DatePicker>
+                        <div style={{textAlign:'initial'}}>手机号码</div>
+                        <InputItem
+                            type="phone"
+                            value={'151 7788 9988'}
+                            style={{'height':"80px","fontSize":16}}
+                            placeholder="例如：151 7788 9988"
+                        ></InputItem>
+                        <div style={{textAlign:'initial'}}>居住地址</div>
+                        <InputItem
+                            type="text"
+                            value={'Weilihuawei 12 Apt 12 Jarkarta 3100'}
+                            style={{'height':"80px","fontSize":16}}
+                            placeholder="例如 3100"
+                        ></InputItem>
+                        
+                    </div>
+                </Modal>
             </div>
         )
     }
